@@ -8,6 +8,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from config import ConfigError, get_config
+from maze_renderer import render_interface
 from mazegen import Maze, MazeGenerator
 
 Path("logs").mkdir(exist_ok=True)

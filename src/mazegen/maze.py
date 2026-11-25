@@ -67,6 +67,7 @@ class Maze:
         ]
         self.entry_cell = self.grid[self.entry[1]][self.entry[0]]
         self.exit_cell = self.grid[self.exit[1]][self.exit[0]]
+        self.theme = "DEFAULT"
         self.warnings: list[str] = []
 
     def get_bitmap(self) -> str:
