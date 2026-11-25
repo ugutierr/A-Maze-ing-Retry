@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mazegen"
+version = "0.1.0"
+description = "Maze generation module."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+
+[dependency-groups]
+app = [
+    "mlx",
+    "pydantic>=2.13.5",
+]
+dev = [
+    "flake8>=7.3.0",
+    "mypy>=2.3.1",
+    "pytest>=9.1.1",
+]
+
+[tool.uv]
+default-groups = ["app", "dev"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mazegen"]
+
+[tool.uv.sources]
+mlx = { path = "lib/mlx-2.2-py3-none-any.whl" }
