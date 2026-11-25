@@ -47,6 +47,9 @@ class MazeGenerator:
                 the requested maze type or if the maze is too small for
                 the required 42 pattern.
         """
+        for row in maze.grid:
+            for cell in row:
+                cell.visited = False
         random.seed(self.seed)
         try:
             self._gen_42logo(maze)

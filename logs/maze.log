@@ -856,3 +856,30 @@ perfect
 algorithm
   Input should be 'DFS', 'PRIM' or 'PACMAN' [type=enum, input_value='ALGORITHM', input_type=str]
     For further information visit https://errors.pydantic.dev/2.13/v/enum
+2026-11-25 17:44:42,457 | ERROR: Unexpected error: | a_maze_ing.py:137
+Traceback (most recent call last):
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 132, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 122, in main
+    render_interface(maze)
+    ~~~~~~~~~~~~~~~~^^^^^^
+TypeError: render_interface() missing 1 required positional argument: 'regenerate'
+2026-11-25 17:45:35,938 | ERROR: Unexpected error: render_interface() missing 1 required positional argument: 'regenerate' | a_maze_ing.py:137
+Traceback (most recent call last):
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 132, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 122, in main
+    render_interface(maze)
+    ~~~~~~~~~~~~~~~~^^^^^^
+TypeError: render_interface() missing 1 required positional argument: 'regenerate'
+2026-11-25 17:49:38,333 | ERROR: Unexpected error: render_interface() missing 1 required positional argument: 'mazegen' | a_maze_ing.py:137
+Traceback (most recent call last):
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 132, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/ugutierr/Desktop/M2/A-Maze-ingR/a_maze_ing.py", line 122, in main
+    render_interface(maze)
+    ~~~~~~~~~~~~~~~~^^^^^^
+TypeError: render_interface() missing 1 required positional argument: 'mazegen'

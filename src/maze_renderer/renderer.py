@@ -2,9 +2,7 @@
 import time
 
 # from collections.abc import Callable # check if permitted
-from typing import Callable
-
-from mazegen import Maze
+from mazegen import Maze, MazeGenerator
 
 from .constants import BLOCK, END, PATH, START, WALL
 from .maze_grid import (
@@ -103,13 +101,13 @@ def render_maze(maze: Maze) -> None:
     height = maze.height
 
     walls = build_grid(width, height)
-    open_maze = build_maze(maze.rows)
+    open_maze = build_maze(maze.get_bitmap().split("\n"))
     with_start = set_cell_value(open_maze, maze.entry, START)
     with_end = set_cell_value(with_start, maze.exit, END)
 
     frames = [walls, open_maze, with_start, with_end]
     if maze.show_path:
-        frames.append(set_path(with_end, maze.entry, maze.path))
+        frames.append(set_path(with_end, maze.entry, maze.shortest_path()))
 
     play_frames(frames, theme)
 
@@ -138,7 +136,7 @@ def show_legend(theme: str) -> None:
     print(f"\n{legend}\n")
 
 
-def show_menu(theme: str):
+def show_menu(theme: str) -> None:
     """
     Print the title and the list of options below the maze.
 
@@ -162,9 +160,7 @@ def show_menu(theme: str):
         print(paint(line, colors["wall"]))
 
 
-def render_interface(
-    maze: MazeData, regenerate: Callable[[], MazeData]
-) -> None:
+def render_interface(maze: Maze, mazegen: MazeGenerator) -> None:
     """
     Run the interactive terminal menu until the user quits.
 
@@ -214,7 +210,8 @@ def render_interface(
             return
 
         if choice == 1:
-            maze = regenerate()
+            mazegen.seed = None
+            mazegen.generate(maze)
         elif choice == 2:
             maze.show_path = not maze.show_path
         elif choice == 3:

@@ -112,14 +112,14 @@ def main() -> int:
         logger.exception(f"Could not find {config.output_file}")
         return 1
     except IsADirectoryError:
-        logger.exception("{config.output_file} is a directory")
+        logger.exception(f"{config.output_file} is a directory")
         return 1
     except OSError:
         logger.exception("Error openning file")
         return 1
 
     try:
-        render_interface(maze)
+        render_interface(maze, mazegen)
     except RuntimeError as error:
         logger.exception(f"Graphics error: {error}")
         return 1
@@ -133,6 +133,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logger.info("Process interrupted")
         sys.exit(130)
-    except Exception:
-        logger.exception("Unexpected error:")
+    except Exception as e:
+        logger.exception(f"Unexpected error: {e}")
         sys.exit(2)
