@@ -1,9 +1,41 @@
+# Maze generator configuration
+
+# Maze width in cells. Integer between 1 and 47.
 WIDTH=20
+
+# Maze height in cells. Integer between 1 and 100.
 HEIGHT=15
+
+# Entry coordinates in x,y format. Must be non-negative and
+# within the maze boundaries.
 ENTRY=0,0
+
+# Exit coordinates in x,y format. Must be non-negative,
+# within the maze boundaries and different from ENTRY.
 EXIT=19,14
+
+# Output file path. Must be a non-empty string.
 OUTPUT_FILE=maze.txt
+
+# Whether the maze must be perfect. Optional.
+# Allowed values: true, false. Defaults to false.
+# Must be true when using DFS or PRIM.
+# Must be false when using PACMAN.
 PERFECT=
+
+# Random generation seed. Optional.
+# Any string value is accepted. Empty means no seed is specified.
 SEED=
+
+# Maze generation algorithm. Optional.
+# Allowed values: DFS, PRIM, PACMAN (case-insensitive).
+# Defaults to DFS if PERFECT=true, otherwise PACMAN.
+# DFS and PRIM require PERFECT=true.
+# PACMAN requires PERFECT=false.
 ALGORITHM=
+
+# Visual theme. Optional.
+# Allowed values: DEFAULT, DRACULA, NORD, GRUVBOX,
+# SOLARIZED, MONOKAI.
+# Empty means no theme is specified.
 THEME=
