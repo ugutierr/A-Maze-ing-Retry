@@ -81,7 +81,11 @@ def main() -> int:
     except ValidationError as e:
         error_msg = "Invalid configuration:"
         for error in e.errors():
-            error_msg += f"\n\tat {error['loc'][0]}: \t{error['msg']}"
+            try:
+                error_msg += f"\n\tat {error['loc'][0]}: \t{error['msg']}"
+            except Exception:
+                error_msg += f"\n\t{error['msg']}"
+
         logger.exception(error_msg)
         return 1
     except ConfigError as e:

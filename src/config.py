@@ -10,6 +10,7 @@ from pydantic import (
     field_validator,
     model_validator,
 )
+from pydantic_core import PydanticCustomError
 
 from mazegen import AlgorithmType, ThemeType
 
@@ -85,13 +86,19 @@ class Config(BaseModel):
                 AlgorithmType.DFS if self.perfect else AlgorithmType.PACMAN
             )
         if self.perfect and self.algorithm == AlgorithmType.PACMAN:
-            raise ValueError(
-                "Incompatible requirements, PACMAN like and pefect maze"
+            raise PydanticCustomError(
+                "",
+                "at perfect: \t"
+                "Incompatible requirements, PACMAN-like and pefect maze",
+                {},
             )
         if not self.perfect and self.algorithm != AlgorithmType.PACMAN:
-            raise ValueError(
+            raise PydanticCustomError(
+                "",
+                "at perfect: \t"
                 f"Incompatible requirements, {self.algorithm.name} "
-                f"and a non-perfect maze"
+                f"and a non-perfect maze",
+                {},
             )
         return self
 
@@ -99,13 +106,18 @@ class Config(BaseModel):
     def check_endpoints(self) -> Self:
         """Validate the maze entry and exit coordinates."""
         if self.entry == self.exit:
-            raise ValueError("Entry and exit cannot be the same cell")
+            raise PydanticCustomError(
+                "", "at entry: \tEntry and exit cannot be the same cell", {}
+            )
         for cell in (self.entry, self.exit):
             if cell[0] >= self.width or cell[1] >= self.height:
-                raise ValueError(
+                raise PydanticCustomError(
+                    "invalid range",
+                    f"at {'exit' if cell == self.entry else 'exit'}: \t"
                     f"{'Entry' if cell == self.entry else 'Exit'}"
                     + " must have x and y coordinates"
-                    + " less than width and height respectively"
+                    + " less than width and height respectively",
+                    {},
                 )
         return self
 
