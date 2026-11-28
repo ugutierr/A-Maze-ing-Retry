@@ -52,12 +52,16 @@ class Config(BaseModel):
             return False
         return value
 
-    @field_validator("output_file", mode="before")
+    @field_validator("output_file", mode="after")
     @classmethod
     def parse_output_file(cls, value: Any) -> Any:
         """Convert an empty output file value to None."""
         if value == "":
-            return None
+            raise PydanticCustomError(
+                "",
+                "Output file must be a non-empty string",
+                {},
+            )
         return value
 
     @field_validator("seed", mode="before")
