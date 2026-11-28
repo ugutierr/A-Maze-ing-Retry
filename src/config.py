@@ -3,7 +3,13 @@
 from pathlib import Path
 from typing import Annotated, Any, Self
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 from mazegen import AlgorithmType
 
@@ -18,6 +24,7 @@ NonNegativeInt = Annotated[int, Field(ge=0)]
 class Config(BaseModel):
     """Represent and validate the application configuration."""
 
+    model_config = ConfigDict(extra="forbid")
     width: Annotated[int, Field(ge=1, le=200)]
     height: Annotated[int, Field(ge=1, le=200)]
     entry: tuple[NonNegativeInt, NonNegativeInt]
