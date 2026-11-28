@@ -127,7 +127,7 @@ def parse_file(file_path: Path) -> dict[str, str]:
     with open(file_path, "r", encoding="utf-8") as file:
         for i, line in enumerate(file, start=1):
             clean_line = line.strip()
-            if clean_line.startswith("#"):
+            if not clean_line or clean_line.startswith("#"):
                 continue
             key_value = clean_line.split("=", maxsplit=1)
             if len(key_value) != 2:
