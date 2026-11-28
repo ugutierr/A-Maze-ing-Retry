@@ -32,12 +32,6 @@ class MazeGenerator:
         self.perfect = perfect
         self.algorithm = algorithm
 
-    def reset_maze(self, maze: Maze) -> None:
-        for row in maze.grid:
-            for cell in row:
-                cell.reset_cell()
-        maze.warnings = []
-
     def generate(self, maze: Maze) -> None:
         """Generate a maze using the configured algorithm.
 
@@ -53,7 +47,7 @@ class MazeGenerator:
                 the requested maze type or if the maze is too small for
                 the required 42 pattern.
         """
-        self.reset_maze(maze)
+        maze.reset_maze()
         random.seed(self.seed)
         try:
             self._gen_42logo(maze)

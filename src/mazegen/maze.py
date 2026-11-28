@@ -79,6 +79,12 @@ class Maze:
         self.show_path = False
         self.warnings: list[str] = []
 
+    def reset_maze(self) -> None:
+        for row in self.grid:
+            for cell in row:
+                cell.reset_cell()
+        self.warnings = []
+
     def get_bitmap(self) -> str:
         """Return the maze as a hexadecimal wall bitmap.
 
