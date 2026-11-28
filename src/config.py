@@ -117,19 +117,25 @@ class Config(BaseModel):
 def parse_file(file_path: Path) -> dict[str, str]:
     ret_dict: dict[str, str] = {}
     with open(file_path, "r", encoding="utf-8") as file:
-        for i, line in enumerate(file):
-            clean_line = line.split("#")[0]
-            if clean_line.strip() == "":
+        for i, line in enumerate(file, start=1):
+            clean_line = line.strip()
+            if clean_line.startswith("#"):
                 continue
-            key_value = clean_line.split("=")
+            key_value = clean_line.split("=", maxsplit=1)
             if len(key_value) != 2:
                 raise ValueError(
-                    f"Expected 'KEY = VALUE #COMMENT' structure in line {i}"
+                    f"Expected 'KEY = VALUE' structure in line {i}"
                 )
             key = key_value[0].strip()
             value = key_value[1].strip()
-            if key in ret_dict.keys():
-                raise ValueError(f"Duplicated key: {key!r}")
+            if not key:
+                raise ValueError(
+                    f"Empty configuration key for value: {value!r} in line {i}"
+                )
+            if key in ret_dict:
+                raise ValueError(
+                    f"Duplicate configuration key: {key!r} in line {i}"
+                )
             ret_dict[key] = value
     return ret_dict
 
