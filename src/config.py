@@ -1,5 +1,6 @@
 """Provide configuration models and utilities."""
 
+from enum import Enum
 from pathlib import Path
 from typing import Annotated, Any, Self
 
@@ -21,6 +22,17 @@ class ConfigError(RuntimeError):
 NonNegativeInt = Annotated[int, Field(ge=0)]
 
 
+class ThemeType(str, Enum):
+    """Represent the maze themes supported."""
+
+    DEFAULT = "DEFAULT"
+    DRACULA = "DRACULA"
+    NORD = "NORD"
+    GRUVBOX = "GRUVBOX"
+    SOLARIZED = "SOLARIZED"
+    MONOKAI = "MONOKAI"
+
+
 class Config(BaseModel):
     """Represent and validate the application configuration."""
 
@@ -33,6 +45,7 @@ class Config(BaseModel):
     perfect: bool
     seed: None | str = None
     algorithm: AlgorithmType | None = None
+    theme: ThemeType | None
 
     @field_validator("entry", "exit", mode="before")
     @classmethod
@@ -132,10 +145,7 @@ def load_config(config_file: str) -> dict[str, str]:
         "perfect",
     }
 
-    optional_keys = {
-        "seed",
-        "algorithm",
-    }
+    optional_keys = {"seed", "algorithm", "theme"}
     path = Path(config_file)
 
     if not path.exists():
