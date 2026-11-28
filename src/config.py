@@ -52,7 +52,7 @@ class Config(BaseModel):
             return False
         return value
 
-    @field_validator("output_file", "theme", mode="before")
+    @field_validator("output_file", mode="before")
     @classmethod
     def parse_output_file(cls, value: Any) -> Any:
         """Convert an empty output file value to None."""
@@ -68,7 +68,7 @@ class Config(BaseModel):
             return None
         return value
 
-    @field_validator("algorithm", mode="before")
+    @field_validator("algorithm", "theme", mode="before")
     @classmethod
     def parse_word(cls, value: Any) -> Any:
         """Normalize configuration words to uppercase."""
