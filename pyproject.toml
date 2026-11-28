@@ -13,7 +13,6 @@ dependencies = [
 
 [dependency-groups]
 app = [
-    "mlx",
     "pydantic>=2.13.5",
 ]
 dev = [
@@ -27,6 +26,3 @@ default-groups = ["app", "dev"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mazegen"]
-
-[tool.uv.sources]
-mlx = { path = "lib/mlx-2.2-py3-none-any.whl" }
