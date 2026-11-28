@@ -25,8 +25,8 @@ class Config(BaseModel):
     """Represent and validate the application configuration."""
 
     model_config = ConfigDict(extra="forbid")
-    width: Annotated[int, Field(ge=1, le=200)]
-    height: Annotated[int, Field(ge=1, le=200)]
+    width: Annotated[int, Field(ge=1, le=47)]
+    height: Annotated[int, Field(ge=1, le=100)]
     entry: tuple[NonNegativeInt, NonNegativeInt]
     exit: tuple[NonNegativeInt, NonNegativeInt]
     output_file: str
