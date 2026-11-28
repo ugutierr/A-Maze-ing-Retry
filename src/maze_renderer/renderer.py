@@ -184,7 +184,7 @@ def render_interface(maze: Maze, mazegen: MazeGenerator) -> None:
     Returns:
         None. The function returns when the user quits.
     """
-    error = ""
+    errors: list[str] = maze.warnings
     while True:
         print("\033[2J\033[H", end="", flush=True)
         render_maze(maze)
@@ -192,16 +192,17 @@ def render_interface(maze: Maze, mazegen: MazeGenerator) -> None:
         show_menu(maze.theme)
         colors = THEMES[maze.theme.lower()]
 
-        if error:
-            print(paint(f"\n{error}\n", colors["end"]))
-            error = ""
+        if errors:
+            for error in errors:
+                print(paint(f"\n{error}\n", colors["end"]))
+            errors = []
 
         try:
             choice = int(
                 input(paint("Choice? (1-4): ", colors["path"])).strip()
             )
         except ValueError:
-            error = "Please enter a number from 1 to 4"
+            errors.append("Please enter a number from 1 to 4")
             continue
 
         except (KeyboardInterrupt, EOFError):
@@ -212,6 +213,7 @@ def render_interface(maze: Maze, mazegen: MazeGenerator) -> None:
         if choice == 1:
             mazegen.seed = None
             mazegen.generate(maze)
+            errors.extend(maze.warnings)
         elif choice == 2:
             maze.show_path = not maze.show_path
         elif choice == 3:
@@ -222,4 +224,4 @@ def render_interface(maze: Maze, mazegen: MazeGenerator) -> None:
             print("\nBye!\n")
             return
         else:
-            error = "Please enter a number from 1 to 4"
+            errors.append("Please enter a number from 1 to 4")
