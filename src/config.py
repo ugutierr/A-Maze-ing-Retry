@@ -45,7 +45,7 @@ class Config(BaseModel):
     perfect: bool
     seed: None | str = None
     algorithm: AlgorithmType | None = None
-    theme: ThemeType | None
+    theme: ThemeType | None = None
 
     @field_validator("entry", "exit", mode="before")
     @classmethod
