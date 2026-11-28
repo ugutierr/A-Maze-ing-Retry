@@ -25,6 +25,14 @@ class Cell:
         self.visited = False
         self.logo42 = False
 
+    def reset_cell(self) -> None:
+        self.north = True
+        self.east = True
+        self.south = True
+        self.west = True
+        self.visited = False
+        self.logo42 = False
+
     def get_bit(self) -> int:
         """Return the bitmask representing the cell's four walls.
 
