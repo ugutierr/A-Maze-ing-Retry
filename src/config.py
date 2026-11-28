@@ -43,7 +43,15 @@ class Config(BaseModel):
             return tuple(map(int, value.split(",")))
         return value
 
-    @field_validator("output_file", mode="before")
+    @field_validator("perfect", mode="before")
+    @classmethod
+    def parse_perfect(cls, value: Any) -> Any:
+        """Convert an empty output file value to None."""
+        if value == "":
+            return False
+        return value
+
+    @field_validator("output_file", "theme", mode="before")
     @classmethod
     def parse_output_file(cls, value: Any) -> Any:
         """Convert an empty output file value to None."""
@@ -136,10 +144,14 @@ def load_config(config_file: str) -> dict[str, str]:
         "entry",
         "exit",
         "output_file",
-        "perfect",
     }
 
-    optional_keys = {"seed", "algorithm", "theme"}
+    optional_keys = {
+        "seed",
+        "algorithm",
+        "theme",
+        "perfect",
+    }
     path = Path(config_file)
 
     if not path.exists():
