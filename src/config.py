@@ -1,6 +1,5 @@
 """Provide configuration models and utilities."""
 
-from enum import Enum
 from pathlib import Path
 from typing import Annotated, Any, Self
 
@@ -12,7 +11,7 @@ from pydantic import (
     model_validator,
 )
 
-from mazegen import AlgorithmType
+from mazegen import AlgorithmType, ThemeType
 
 
 class ConfigError(RuntimeError):
@@ -20,17 +19,6 @@ class ConfigError(RuntimeError):
 
 
 NonNegativeInt = Annotated[int, Field(ge=0)]
-
-
-class ThemeType(str, Enum):
-    """Represent the maze themes supported."""
-
-    DEFAULT = "DEFAULT"
-    DRACULA = "DRACULA"
-    NORD = "NORD"
-    GRUVBOX = "GRUVBOX"
-    SOLARIZED = "SOLARIZED"
-    MONOKAI = "MONOKAI"
 
 
 class Config(BaseModel):

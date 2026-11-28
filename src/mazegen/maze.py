@@ -2,8 +2,20 @@
 
 import logging
 from collections import deque
+from enum import Enum
 
 logger = logging.getLogger(__name__)
+
+
+class ThemeType(str, Enum):
+    """Represent the maze themes supported."""
+
+    DEFAULT = "DEFAULT"
+    DRACULA = "DRACULA"
+    NORD = "NORD"
+    GRUVBOX = "GRUVBOX"
+    SOLARIZED = "SOLARIZED"
+    MONOKAI = "MONOKAI"
 
 
 class Cell:
@@ -56,6 +68,7 @@ class Maze:
         height: int,
         entry: tuple[int, int],
         exit: tuple[int, int],
+        theme: ThemeType | None,
     ) -> None:
         """Initialize a maze with the given dimensions and endpoints.
 
@@ -75,7 +88,7 @@ class Maze:
         ]
         self.entry_cell = self.grid[self.entry[1]][self.entry[0]]
         self.exit_cell = self.grid[self.exit[1]][self.exit[0]]
-        self.theme = "DEFAULT"
+        self.theme = "DEFAULT" if not theme else theme.value
         self.show_path = False
         self.warnings: list[str] = []
 

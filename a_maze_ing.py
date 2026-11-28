@@ -89,7 +89,7 @@ def main() -> int:
         return 1
 
     maze_config = config.model_dump(
-        include={"width", "height", "entry", "exit"}
+        include={"width", "height", "entry", "exit", "theme"}
     )
     mazegen_config = config.model_dump(
         include={"seed", "perfect", "algorithm"}
